@@ -8,8 +8,9 @@ function PersonDetail() {
 
   useEffect(() => {
     async function getPerson() {
+      const apiUrl = process.env.REACT_APP_API_URL;
       try {
-        const response = await axios.get(`http://localhost:3000/person/${id}`);
+        const response = await axios.get(`${apiUrl}/person/${id}`);
         setPerson(response.data);
       } catch (error) {
         console.log(error);
@@ -26,7 +27,9 @@ function PersonDetail() {
   return (
     <div className='container mt-3'>
       <h1>{person.name}</h1>
-      <p>Birth date: {new Date(person.birthDate).toLocaleDateString()}</p>
+      {person.birthDate && (
+        <p>Birth date: {new Date(person.birthDate).toLocaleDateString()}</p>
+      )}
       <hr />
       <h2>Contacts</h2>
       <ul>

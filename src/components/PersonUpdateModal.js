@@ -5,13 +5,16 @@ import axios from 'axios';
 function PersonUpdateModal({ show, handleClose, person, handleUpdateList }) {
   const [name, setName] = useState(person.name);
   const [birthDate, setBirthDate] = useState(
-    new Date(person.birthDate).toISOString().slice(0, 10)
+    person.birthDate
+      ? new Date(person.birthDate).toISOString().slice(0, 10)
+      : ''
   );
 
   const handleSavePerson = async () => {
     const birth = birthDate ? birthDate : null;
+    const apiUrl = process.env.REACT_APP_API_URL;
     try {
-      await axios.patch(`http://localhost:3000/person/${person.id}`, {
+      await axios.patch(`${apiUrl}/person/${person.id}`, {
         name,
         birthDate: birth,
       });

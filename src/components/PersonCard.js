@@ -9,8 +9,9 @@ function PersonCard({ person }) {
   const [showUpdateModal, setShowUpdateModal] = useState(false);
 
   const handleDeletePerson = async (id) => {
+    const apiUrl = process.env.REACT_APP_API_URL;
     try {
-      await axios.delete(`http://localhost:3000/person/${id}`);
+      await axios.delete(`${apiUrl}/person/${id}`);
       window.location.reload();
     } catch (error) {
       console.log(error);

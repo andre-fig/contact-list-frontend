@@ -13,9 +13,9 @@ function PersonForm() {
 
   async function handleSubmit(event) {
     event.preventDefault();
-
+    const apiUrl = process.env.REACT_APP_API_URL;
     try {
-      const response = await axios.post('http://localhost:3000/person', {
+      const response = await axios.post(`${apiUrl}/person`, {
         name,
         birthDate,
       });

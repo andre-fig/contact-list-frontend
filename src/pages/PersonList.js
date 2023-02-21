@@ -10,8 +10,9 @@ function PersonList() {
   }, []);
 
   const fetchPersons = async () => {
+    const apiUrl = process.env.REACT_APP_API_URL;
     try {
-      const response = await axios.get('http://localhost:3000/person');
+      const response = await axios.get(`${apiUrl}/person`);
       const sortedPersons = response.data.sort((a, b) =>
         a.name.localeCompare(b.name)
       );
@@ -24,13 +25,17 @@ function PersonList() {
   return (
     <div className='container mt-3'>
       <h1 className='mb-3'>People</h1>
-      <ul className='list-group list-group-flush'>
-        {persons.map((person) => (
-          <li className='list-group-item px-0 py-3' key={person.id}>
-            <PersonCard person={person} />
-          </li>
-        ))}
-      </ul>
+      {persons.length > 0 ? (
+        <ul className='list-group list-group-flush'>
+          {persons.map((person) => (
+            <li className='list-group-item px-0 py-3' key={person.id}>
+              <PersonCard person={person} />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div>No person found.</div>
+      )}
     </div>
   );
 }

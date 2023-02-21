@@ -10,8 +10,10 @@ function PersonFormModal(props) {
   const handleSubmit = async (event) => {
     const data = birthDate ? { name, birthDate } : { name };
 
+    const apiUrl = process.env.REACT_APP_API_URL;
+
     try {
-      const response = await axios.post('http://localhost:3000/person', data);
+      const response = await axios.post(`${apiUrl}/person`, data);
       handleAddPerson(response.data);
       handleClose();
     } catch (error) {

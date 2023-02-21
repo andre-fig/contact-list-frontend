@@ -10,10 +10,10 @@ function ContactForm({ personId }) {
   async function handleSubmit(event) {
     event.preventDefault();
 
-    console.log(type, value, personId);
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     try {
-      await axios.post(`http://localhost:3000/contact`, {
+      await axios.post(`${apiUrl}/contact`, {
         type,
         value,
         personId,
