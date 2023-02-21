@@ -4,6 +4,7 @@ import axios from 'axios';
 import ContactCard from '../components/ContactCard';
 import ContactFormModal from '../components/ContactFormModal';
 import { BsPlus } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
 
 function PersonDetail() {
   const [person, setPerson] = useState(null);
@@ -48,8 +49,7 @@ function PersonDetail() {
   };
 
   const handleSetContacts = (updatedContacts) => {
-    const sortedContacts = sortContacts(updatedContacts);
-    setContacts(sortedContacts);
+    setContacts(updatedContacts);
   };
 
   return (
@@ -65,9 +65,9 @@ function PersonDetail() {
       <hr />
       <div className='d-flex align-items-center'>
         <h2 className='me-auto'>Contacts</h2>
-        <span className='text-primary' onClick={() => setShowModal(true)}>
+        <Link className='text-primary' onClick={() => setShowModal(true)}>
           <BsPlus size={30} />
-        </span>
+        </Link>
       </div>
       {contacts.length > 0 ? (
         <ul className='list-unstyled'>

@@ -40,7 +40,7 @@ function PersonCard({ person }) {
             {birthDate && new Date(birthDate).toLocaleDateString()}
           </div>
         </div>
-        <span
+        <Link
           className='text-primary ms-auto mx-2'
           onClick={(event) => {
             event.stopPropagation();
@@ -49,8 +49,8 @@ function PersonCard({ person }) {
           }}
         >
           <BsPencil size={20} />
-        </span>
-        <span
+        </Link>
+        <Link
           className='text-primary mx-2'
           onClick={(event) => {
             event.stopPropagation();
@@ -58,7 +58,7 @@ function PersonCard({ person }) {
           }}
         >
           <BsTrash size={20} />
-        </span>
+        </Link>
       </Link>
 
       <PersonUpdateModal

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { BsTrash, BsPencil } from 'react-icons/bs';
 import ContactUpdateModal from './ContactUpdateModal';
+import { Link } from 'react-router-dom';
 
 function ContactCard({ contact, setContacts }) {
   const { id, type, value } = contact;
@@ -28,7 +29,7 @@ function ContactCard({ contact, setContacts }) {
           <div className='fw-bold'>{type}</div>
           <div className='text-muted'>{value}</div>
         </div>
-        <span
+        <Link
           className='text-primary ms-auto mx-2'
           onClick={(event) => {
             event.stopPropagation();
@@ -37,16 +38,16 @@ function ContactCard({ contact, setContacts }) {
           }}
         >
           <BsPencil size={20} />
-        </span>
-        <span
-          className='text-primary mx-2 '
+        </Link>
+        <Link
+          className='text-primary mx-2'
           onClick={(event) => {
             event.stopPropagation();
             handleDeleteContact(id);
           }}
         >
           <BsTrash size={20} />
-        </span>
+        </Link>
       </div>
 
       <ContactUpdateModal
