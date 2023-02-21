@@ -5,6 +5,7 @@ import ContactCard from '../components/ContactCard';
 import ContactFormModal from '../components/ContactFormModal';
 import { BsPlus } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
+import Loading from '../components/Loading';
 
 function PersonDetail() {
   const [person, setPerson] = useState(null);
@@ -36,7 +37,7 @@ function PersonDetail() {
   }, [id]);
 
   if (!person) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   const handleCloseModal = () => {
