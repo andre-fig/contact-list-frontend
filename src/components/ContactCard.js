@@ -60,7 +60,7 @@ function ContactCard({ contact, setContacts }) {
         show={showUpdateModal}
         handleClose={() => setShowUpdateModal(false)}
         contact={contact}
-        handleUpdateList={setUpdatedContact}
+        handleUpdateContactList={setUpdatedContact}
       />
     </>
   );

@@ -55,14 +55,14 @@ function PersonDetail() {
 
   return (
     <div className='container mt-3'>
-      <h1>
-        {person.name}
+      <div className='d-flex align-items-center'>
+        <h1 className='me-auto'>{person.name}</h1>
         {person.birthDate && (
           <small className='text-muted ms-2 fs-6'>
             Birthdate: {new Date(person.birthDate).toLocaleDateString()}
           </small>
         )}
-      </h1>
+      </div>
       <hr />
       <div className='d-flex align-items-center'>
         <h2 className='me-auto'>Contacts</h2>

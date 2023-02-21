@@ -1,14 +1,6 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import PersonFormModal from './PersonFormModal';
 
 function Navbar() {
-  const [showModal, setShowModal] = useState(false);
-
-  const openModal = () => {
-    setShowModal(true);
-  };
-
   return (
     <nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
       <div className='container'>
@@ -30,21 +22,12 @@ function Navbar() {
           <ul className='navbar-nav'>
             <li className='nav-item'>
               <Link className='nav-link' to='/'>
-                List
-              </Link>
-            </li>
-            <li className='nav-item'>
-              <Link className='nav-link' to='#' onClick={openModal}>
-                Add Person
+                People
               </Link>
             </li>
           </ul>
         </div>
       </div>
-      <PersonFormModal
-        show={showModal}
-        handleClose={() => setShowModal(false)}
-      />
     </nav>
   );
 }

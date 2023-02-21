@@ -2,7 +2,12 @@ import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import axios from 'axios';
 
-function ContactUpdateModal({ show, handleClose, contact, handleUpdateList }) {
+function ContactUpdateModal({
+  show,
+  handleClose,
+  contact,
+  handleUpdateContactList,
+}) {
   const [type, setType] = useState(contact.type);
   const [value, setValue] = useState(contact.value);
 
@@ -14,8 +19,8 @@ function ContactUpdateModal({ show, handleClose, contact, handleUpdateList }) {
         type,
         value,
       });
+      handleUpdateContactList(response.data);
       handleClose();
-      handleUpdateList(response);
     } catch (error) {
       console.log(error);
     }
