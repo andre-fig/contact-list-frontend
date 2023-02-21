@@ -10,18 +10,18 @@ function PersonList() {
   const [people, setPeople] = useState([]);
 
   useEffect(() => {
-    const fetchPersons = async () => {
+    const fetchPeople = async () => {
       const apiUrl = process.env.REACT_APP_API_URL;
       try {
         const response = await axios.get(`${apiUrl}/person`);
-        const sortedPersons = sortPeople(response.data);
-        setPeople(sortedPersons);
+        const sortedPeople = sortPeople(response.data);
+        setPeople(sortedPeople);
       } catch (error) {
         console.log(error);
       }
     };
 
-    fetchPersons();
+    fetchPeople();
   }, []);
 
   const openModal = () => {

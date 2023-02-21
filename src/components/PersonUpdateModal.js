@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import axios from 'axios';
 
-function PersonUpdateModal({ show, handleClose, person, handleUpdatePerson }) {
+function PersonUpdateModal({ show, handleClose, person, handleUpdatePeople }) {
   const [name, setName] = useState(person.name);
   const [birthDate, setBirthDate] = useState(
     person.birthDate
@@ -19,7 +19,7 @@ function PersonUpdateModal({ show, handleClose, person, handleUpdatePerson }) {
         name,
         birthDate: birth,
       });
-      handleUpdatePerson(response.data);
+      handleUpdatePeople(response.data);
       handleClose();
     } catch (error) {
       console.log(error);

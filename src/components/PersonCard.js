@@ -18,8 +18,21 @@ function PersonCard({ person, setPeople }) {
     }
   };
 
+  const sortPeople = (people) => {
+    return people.sort((a, b) => a.name.localeCompare(b.name));
+  };
+
   const handleUpdatePerson = (event) => {
     setShowUpdateModal(true);
+  };
+
+  const handleUpdatePeople = (updatedPerson) => {
+    setPeople((prevPeople) => {
+      const updatedPeople = prevPeople.map((p) =>
+        p.id === updatedPerson.id ? updatedPerson : p
+      );
+      return sortPeople(updatedPeople);
+    });
   };
 
   return (
@@ -38,7 +51,10 @@ function PersonCard({ person, setPeople }) {
           <div className='ms-3'>
             <div className='fw-bold'>{name}</div>
             <div className='text-muted'>
-              {birthDate && new Date(birthDate).toLocaleDateString()}
+              {birthDate &&
+                new Date(birthDate).toLocaleDateString('pt-BR', {
+                  timeZone: 'UTC',
+                })}
             </div>
           </div>
         </Link>
@@ -67,6 +83,7 @@ function PersonCard({ person, setPeople }) {
         handleClose={() => setShowUpdateModal(false)}
         person={person}
         handleUpdatePerson={handleUpdatePerson}
+        handleUpdatePeople={handleUpdatePeople}
       />
     </>
   );

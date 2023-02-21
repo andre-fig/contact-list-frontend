@@ -59,7 +59,7 @@ function PersonDetail() {
         <h1 className='me-auto'>{person.name}</h1>
         {person.birthDate && (
           <small className='text-muted ms-2 fs-6'>
-            Birthdate: {new Date(person.birthDate).toLocaleDateString()}
+            Birthdate: {new Date(person.birthDate).toLocaleDateString('pt-BR')}
           </small>
         )}
       </div>
