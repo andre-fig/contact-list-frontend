@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import ContactCard from '../components/ContactCard';
+import ContactFormModal from '../components/ContactFormModal';
+import { BsPlus } from 'react-icons/bs';
 
 function PersonDetail() {
   const [person, setPerson] = useState(null);
+  const [contacts, setContacts] = useState([]);
+  const [showModal, setShowModal] = useState(false);
   const { id } = useParams();
 
   useEffect(() => {
@@ -12,6 +17,10 @@ function PersonDetail() {
       try {
         const response = await axios.get(`${apiUrl}/person/${id}`);
         setPerson(response.data);
+        const contactsResponse = await axios.get(
+          `${apiUrl}/person/${id}/contact`
+        );
+        setContacts(contactsResponse.data);
       } catch (error) {
         console.log(error);
       }
@@ -24,6 +33,10 @@ function PersonDetail() {
     return <div>Loading...</div>;
   }
 
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <div className='container mt-3'>
       <h1>{person.name}</h1>
@@ -31,17 +44,31 @@ function PersonDetail() {
         <p>Birth date: {new Date(person.birthDate).toLocaleDateString()}</p>
       )}
       <hr />
-      <h2>Contacts</h2>
-      <ul>
-        {person.contacts?.map((contact) => (
-          <li key={contact.id}>
-            {contact.type}: {contact.value}
-          </li>
-        ))}
-      </ul>
-      <a href={`/person/${id}/contact/new`} className='btn btn-primary'>
-        Add Contact
-      </a>
+      <div className='d-flex align-items-center'>
+        <h2 className='me-auto'>Contacts</h2>
+        <span
+          className='text-primary cursor-pointer'
+          onClick={() => setShowModal(true)}
+        >
+          <BsPlus size={30} />
+        </span>
+      </div>
+      {contacts.length > 0 ? (
+        <ul className='list-unstyled'>
+          {contacts.map((contact) => (
+            <li key={contact.id}>
+              <ContactCard contact={contact} />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div>No contacts found.</div>
+      )}
+      <ContactFormModal
+        show={showModal}
+        handleClose={handleCloseModal}
+        personId={id}
+      />
     </div>
   );
 }

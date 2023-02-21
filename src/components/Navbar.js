@@ -34,9 +34,9 @@ function Navbar() {
               </Link>
             </li>
             <li className='nav-item'>
-              <button className='nav-link btn btn-link' onClick={openModal}>
+              <Link className='nav-link' to='#' onClick={openModal}>
                 Add Person
-              </button>
+              </Link>
             </li>
           </ul>
         </div>
