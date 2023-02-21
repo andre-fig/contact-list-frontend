@@ -10,6 +10,17 @@ function PersonList() {
   const [persons, setPersons] = useState([]);
 
   useEffect(() => {
+    const fetchPersons = async () => {
+      const apiUrl = process.env.REACT_APP_API_URL;
+      try {
+        const response = await axios.get(`${apiUrl}/person`);
+        const sortedPersons = sortPersons(response.data);
+        setPersons(sortedPersons);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
     fetchPersons();
   }, []);
 
@@ -17,17 +28,13 @@ function PersonList() {
     setShowModal(true);
   };
 
-  const fetchPersons = async () => {
-    const apiUrl = process.env.REACT_APP_API_URL;
-    try {
-      const response = await axios.get(`${apiUrl}/person`);
-      const sortedPersons = response.data.sort((a, b) =>
-        a.name.localeCompare(b.name)
-      );
-      setPersons(sortedPersons);
-    } catch (error) {
-      console.log(error);
-    }
+  const sortPersons = (persons) => {
+    return persons.sort((a, b) => a.name.localeCompare(b.name));
+  };
+
+  const handleAddPerson = (newPerson) => {
+    const sortedPersons = sortPersons([...persons, newPerson]);
+    setPersons(sortedPersons);
   };
 
   return (
@@ -55,6 +62,7 @@ function PersonList() {
       <PersonFormModal
         show={showModal}
         handleClose={() => setShowModal(false)}
+        handleAddPerson={handleAddPerson}
       />
     </>
   );

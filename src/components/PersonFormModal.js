@@ -2,18 +2,19 @@ import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import axios from 'axios';
 
-function PersonFormModal(props) {
-  const { show, handleClose } = props;
+function PersonFormModal({ show, handleClose, handleAddPerson }) {
   const [name, setName] = useState('');
   const [birthDate, setBirthDate] = useState('');
 
   const handleSubmit = async (event) => {
-    const data = birthDate ? { name, birthDate } : { name };
+    event.preventDefault();
 
+    const data = birthDate ? { name, birthDate } : { name };
     const apiUrl = process.env.REACT_APP_API_URL;
 
     try {
-      await axios.post(`${apiUrl}/person`, data);
+      const response = await axios.post(`${apiUrl}/person`, data);
+      handleAddPerson(response.data);
       handleClose();
     } catch (error) {
       console.log(error);
