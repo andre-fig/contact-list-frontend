@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import axios from 'axios';
 
-function PersonUpdateModal({ show, handleClose, person, handleUpdateList }) {
+function PersonUpdateModal({ show, handleClose, person, handleUpdatePerson }) {
   const [name, setName] = useState(person.name);
   const [birthDate, setBirthDate] = useState(
     person.birthDate
@@ -10,16 +10,17 @@ function PersonUpdateModal({ show, handleClose, person, handleUpdateList }) {
       : ''
   );
 
-  const handleSavePerson = async () => {
+  const handleSavePerson = async (event) => {
+    event.preventDefault();
     const birth = birthDate ? birthDate : null;
     const apiUrl = process.env.REACT_APP_API_URL;
     try {
-      await axios.patch(`${apiUrl}/person/${person.id}`, {
+      const response = await axios.patch(`${apiUrl}/person/${person.id}`, {
         name,
         birthDate: birth,
       });
+      handleUpdatePerson(response.data);
       handleClose();
-      handleUpdateList();
     } catch (error) {
       console.log(error);
     }
