@@ -1,20 +1,17 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import { BsTrash, BsPencil } from 'react-icons/bs';
 import PersonUpdateModal from './PersonUpdateModal';
+import { deletePerson } from '../services/person';
 
 function PersonCard({ person, setPeople }) {
   const { id, name, birthDate } = person;
   const [showUpdateModal, setShowUpdateModal] = useState(false);
 
   const handleDeletePerson = async (id) => {
-    const apiUrl = process.env.REACT_APP_API_URL;
-    try {
-      await axios.delete(`${apiUrl}/person/${id}`);
+    const deleted = await deletePerson(id);
+    if (deleted) {
       setPeople((prevPeople) => prevPeople.filter((p) => p.id !== id));
-    } catch (error) {
-      console.log(error);
     }
   };
 

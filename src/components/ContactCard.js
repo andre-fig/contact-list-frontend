@@ -1,20 +1,17 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { BsTrash, BsPencil } from 'react-icons/bs';
 import ContactUpdateModal from './ContactUpdateModal';
 import { Link } from 'react-router-dom';
+import { deleteContact } from '../services/contact';
 
 function ContactCard({ contact, setContacts }) {
   const { id, type, value } = contact;
   const [showUpdateModal, setShowUpdateModal] = useState(false);
 
   const handleDeleteContact = async (id) => {
-    const apiUrl = process.env.REACT_APP_API_URL;
-    try {
-      await axios.delete(`${apiUrl}/contact/${id}`);
+    const deleted = await deleteContact(id);
+    if (deleted) {
       setContacts((prevContacts) => prevContacts.filter((c) => c.id !== id));
-    } catch (error) {
-      console.log(error);
     }
   };
 

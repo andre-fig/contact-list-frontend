@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import PersonCard from '../components/PersonCard';
 import PersonFormModal from '../components/PersonFormModal';
 import { Link } from 'react-router-dom';
 import { BsPlus } from 'react-icons/bs';
 import { sortArray } from '../utils/sortArray';
+import { getPeople } from '../services/person';
 
 function PersonList() {
   const [showModal, setShowModal] = useState(false);
@@ -12,15 +12,11 @@ function PersonList() {
 
   useEffect(() => {
     const fetchPeople = async () => {
-      const apiUrl = process.env.REACT_APP_API_URL;
-      try {
-        const response = await axios.get(`${apiUrl}/person`);
-        setPeople(response.data);
-      } catch (error) {
-        console.log(error);
+      const fetchedPeople = await getPeople();
+      if (fetchedPeople) {
+        setPeople(fetchedPeople);
       }
     };
-
     fetchPeople();
   }, []);
 

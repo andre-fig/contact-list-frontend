@@ -7,12 +7,30 @@ import { BsPlus } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import Loading from '../components/Loading';
 import { sortArray } from '../utils/sortArray';
+import { getPersonById, getPersonContacts } from '../services/person';
 
 function PersonDetail() {
   const [person, setPerson] = useState(null);
   const [contacts, setContacts] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const { id } = useParams();
+
+  useEffect(() => {
+    async function getPerson() {
+      const [person, contacts] = await Promise.all([
+        getPersonById(id),
+        getPersonContacts(id),
+      ]);
+      if (person) {
+        setPerson(person);
+      }
+      if (contacts) {
+        setContacts(contacts);
+      }
+    }
+
+    getPerson();
+  }, [id]);
 
   useEffect(() => {
     async function getPerson() {

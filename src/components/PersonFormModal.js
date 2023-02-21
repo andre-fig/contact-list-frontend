@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
-import axios from 'axios';
+import { createPerson } from '../services/person';
 
 function PersonFormModal({ show, handleClose, handleAddPerson }) {
   const [name, setName] = useState('');
@@ -9,15 +9,11 @@ function PersonFormModal({ show, handleClose, handleAddPerson }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const data = birthDate ? { name, birthDate } : { name };
-    const apiUrl = process.env.REACT_APP_API_URL;
-
-    try {
-      const response = await axios.post(`${apiUrl}/person`, data);
-      handleAddPerson(response.data);
+    const personData = birthDate ? { name, birthDate } : { name };
+    const createdPerson = await createPerson(personData);
+    if (createdPerson) {
+      handleAddPerson(createdPerson);
       handleClose();
-    } catch (error) {
-      console.log(error);
     }
   };
 

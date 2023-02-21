@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
-import axios from 'axios';
+import { createContact } from '../services/contact';
 
 function ContactFormModal({ personId, show, handleClose, handleAddContact }) {
   const [type, setType] = useState('');
@@ -9,18 +9,11 @@ function ContactFormModal({ personId, show, handleClose, handleAddContact }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const apiUrl = process.env.REACT_APP_API_URL;
-
-    try {
-      const response = await axios.post(`${apiUrl}/contact`, {
-        type,
-        value,
-        personId,
-      });
-      handleAddContact(response.data);
+    const contactData = { type, value, personId };
+    const createdContact = await createContact(contactData);
+    if (createdContact) {
+      handleAddContact(createdContact);
       handleClose();
-    } catch (error) {
-      console.log(error);
     }
   };
 

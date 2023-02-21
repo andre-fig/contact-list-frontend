@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
-import axios from 'axios';
+import { updateContact } from '../services/contact';
 
 function ContactUpdateModal({
   show,
@@ -13,16 +13,15 @@ function ContactUpdateModal({
 
   const handleSavePerson = async (event) => {
     event.preventDefault();
-    const apiUrl = process.env.REACT_APP_API_URL;
-    try {
-      const response = await axios.patch(`${apiUrl}/contact/${contact.id}`, {
-        type,
-        value,
-      });
-      handleUpdateContactList(response.data);
+    const updatedContactData = {
+      id: contact.id,
+      type,
+      value,
+    };
+    const updatedContact = await updateContact(updatedContactData);
+    if (updatedContact) {
+      handleUpdateContactList(updatedContact);
       handleClose();
-    } catch (error) {
-      console.log(error);
     }
   };
 
