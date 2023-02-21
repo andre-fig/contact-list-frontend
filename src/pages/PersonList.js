@@ -4,6 +4,7 @@ import PersonCard from '../components/PersonCard';
 import PersonFormModal from '../components/PersonFormModal';
 import { Link } from 'react-router-dom';
 import { BsPlus } from 'react-icons/bs';
+import { sortArray } from '../utils/sortArray';
 
 function PersonList() {
   const [showModal, setShowModal] = useState(false);
@@ -14,8 +15,7 @@ function PersonList() {
       const apiUrl = process.env.REACT_APP_API_URL;
       try {
         const response = await axios.get(`${apiUrl}/person`);
-        const sortedPeople = sortPeople(response.data);
-        setPeople(sortedPeople);
+        setPeople(response.data);
       } catch (error) {
         console.log(error);
       }
@@ -28,25 +28,19 @@ function PersonList() {
     setShowModal(true);
   };
 
-  const sortPeople = (people) => {
-    return people.sort((a, b) => a.name.localeCompare(b.name));
-  };
-
   const handleSetPeople = (updatedPeople) => {
     setPeople(updatedPeople);
   };
 
   const handleAddPerson = (newPerson) => {
-    const sortedPeople = sortPeople([...people, newPerson]);
-    setPeople(sortedPeople);
+    setPeople([...people, newPerson]);
   };
 
   const handleUpdatePerson = (updatedPerson) => {
     const updatedPersons = people.map((person) =>
       person.id === updatedPerson.id ? updatedPerson : person
     );
-    const sortedPeople = sortPeople(updatedPersons);
-    setPeople(sortedPeople);
+    setPeople(updatedPersons);
   };
 
   const handleCloseModal = () => {
@@ -65,7 +59,7 @@ function PersonList() {
         <hr />
         {people.length > 0 ? (
           <ul className='list-group list-group-flush'>
-            {people.map((person) => (
+            {sortArray(people, 'name').map((person) => (
               <li className='list-group-item px-0 py-3' key={person.id}>
                 <PersonCard person={person} setPeople={handleSetPeople} />
               </li>

@@ -6,16 +6,13 @@ import ContactFormModal from '../components/ContactFormModal';
 import { BsPlus } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import Loading from '../components/Loading';
+import { sortArray } from '../utils/sortArray';
 
 function PersonDetail() {
   const [person, setPerson] = useState(null);
   const [contacts, setContacts] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const { id } = useParams();
-
-  const sortContacts = (contacts) => {
-    return contacts.sort((a, b) => a.type.localeCompare(b.type));
-  };
 
   useEffect(() => {
     async function getPerson() {
@@ -26,8 +23,7 @@ function PersonDetail() {
         const contactsResponse = await axios.get(
           `${apiUrl}/person/${id}/contact`
         );
-        const sortedContacts = sortContacts(contactsResponse.data);
-        setContacts(sortedContacts);
+        setContacts(contactsResponse.data);
       } catch (error) {
         console.log(error);
       }
@@ -45,8 +41,7 @@ function PersonDetail() {
   };
 
   const handleAddContact = (newContact) => {
-    const sortedContacts = sortContacts([...contacts, newContact]);
-    setContacts(sortedContacts);
+    setContacts([...contacts, newContact]);
   };
 
   const handleSetContacts = (updatedContacts) => {
@@ -72,7 +67,7 @@ function PersonDetail() {
       </div>
       {contacts.length > 0 ? (
         <ul className='list-unstyled'>
-          {contacts.map((contact) => (
+          {sortArray(contacts, 'type').map((contact) => (
             <li key={contact.id}>
               <ContactCard contact={contact} setContacts={handleSetContacts} />
             </li>

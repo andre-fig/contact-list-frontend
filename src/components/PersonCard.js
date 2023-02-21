@@ -18,10 +18,6 @@ function PersonCard({ person, setPeople }) {
     }
   };
 
-  const sortPeople = (people) => {
-    return people.sort((a, b) => a.name.localeCompare(b.name));
-  };
-
   const handleUpdatePerson = (event) => {
     setShowUpdateModal(true);
   };
@@ -31,7 +27,7 @@ function PersonCard({ person, setPeople }) {
       const updatedPeople = prevPeople.map((p) =>
         p.id === updatedPerson.id ? updatedPerson : p
       );
-      return sortPeople(updatedPeople);
+      return updatedPeople;
     });
   };
 
