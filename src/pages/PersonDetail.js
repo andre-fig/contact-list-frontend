@@ -11,6 +11,10 @@ function PersonDetail() {
   const [showModal, setShowModal] = useState(false);
   const { id } = useParams();
 
+  const sortContacts = (contacts) => {
+    return contacts.sort((a, b) => a.type.localeCompare(b.type));
+  };
+
   useEffect(() => {
     async function getPerson() {
       const apiUrl = process.env.REACT_APP_API_URL;
@@ -20,9 +24,7 @@ function PersonDetail() {
         const contactsResponse = await axios.get(
           `${apiUrl}/person/${id}/contact`
         );
-        const sortedContacts = contactsResponse.data.sort((a, b) =>
-          a.type.localeCompare(b.type)
-        );
+        const sortedContacts = sortContacts(contactsResponse.data);
         setContacts(sortedContacts);
       } catch (error) {
         console.log(error);
@@ -41,11 +43,13 @@ function PersonDetail() {
   };
 
   const handleAddContact = (newContact) => {
-    setContacts([...contacts, newContact]);
+    const sortedContacts = sortContacts([...contacts, newContact]);
+    setContacts(sortedContacts);
   };
 
   const handleSetContacts = (updatedContacts) => {
-    setContacts(updatedContacts);
+    const sortedContacts = sortContacts(updatedContacts);
+    setContacts(sortedContacts);
   };
 
   return (
