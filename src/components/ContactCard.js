@@ -3,7 +3,7 @@ import axios from 'axios';
 import { BsTrash, BsPencil } from 'react-icons/bs';
 import ContactUpdateModal from './ContactUpdateModal';
 
-function ContactCard({ contact }) {
+function ContactCard({ contact, setContacts }) {
   const { id, type, value } = contact;
   const [showUpdateModal, setShowUpdateModal] = useState(false);
 
@@ -11,7 +11,7 @@ function ContactCard({ contact }) {
     const apiUrl = process.env.REACT_APP_API_URL;
     try {
       await axios.delete(`${apiUrl}/contact/${id}`);
-      window.location.reload();
+      setContacts((prevContacts) => prevContacts.filter((c) => c.id !== id));
     } catch (error) {
       console.log(error);
     }

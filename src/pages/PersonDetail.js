@@ -44,6 +44,10 @@ function PersonDetail() {
     setContacts([...contacts, newContact]);
   };
 
+  const handleSetContacts = (updatedContacts) => {
+    setContacts(updatedContacts);
+  };
+
   return (
     <div className='container mt-3'>
       <h1>
@@ -65,7 +69,7 @@ function PersonDetail() {
         <ul className='list-unstyled'>
           {contacts.map((contact) => (
             <li key={contact.id}>
-              <ContactCard contact={contact} />
+              <ContactCard contact={contact} setContacts={handleSetContacts} />
             </li>
           ))}
         </ul>
