@@ -1,4 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Navbar from './components/Navbar';
 import PersonList from './pages/PersonList';
 import PersonDetail from './pages/PersonDetail';
@@ -13,6 +15,7 @@ function App() {
         <Route path='/person/:id' element={<PersonDetail />} />
         <Route path='/*' element={<NotFound />} />
       </Routes>
+      <ToastContainer />
     </div>
   );
 }

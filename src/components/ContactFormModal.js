@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
-import { createContact } from '../services/contact';
+import { createContact } from '../services/Contact';
 
 function ContactFormModal({ personId, show, handleClose, handleAddContact }) {
   const [type, setType] = useState('');

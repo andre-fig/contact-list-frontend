@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
-import { updateContact } from '../services/contact';
+import { updateContact } from '../services/Contact';
 
 function ContactUpdateModal({
   show,

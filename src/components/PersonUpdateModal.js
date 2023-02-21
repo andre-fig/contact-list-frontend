@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
-import { updatePerson } from '../services/person';
+import { updatePerson } from '../services/Person';
 
 function PersonUpdateModal({ show, handleClose, person, handleUpdatePeople }) {
   const [name, setName] = useState(person.name);

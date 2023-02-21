@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
-import { createPerson } from '../services/person';
+import { createPerson } from '../services/Person';
 
 function PersonFormModal({ show, handleClose, handleAddPerson }) {
   const [name, setName] = useState('');

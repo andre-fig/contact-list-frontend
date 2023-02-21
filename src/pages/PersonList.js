@@ -4,7 +4,7 @@ import PersonFormModal from '../components/PersonFormModal';
 import { Link } from 'react-router-dom';
 import { BsPlus } from 'react-icons/bs';
 import { sortArray } from '../utils/sortArray';
-import { getPeople } from '../services/person';
+import { getPeople } from '../services/Person';
 
 function PersonList() {
   const [showModal, setShowModal] = useState(false);

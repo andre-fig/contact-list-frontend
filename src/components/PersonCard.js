@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BsTrash, BsPencil } from 'react-icons/bs';
 import PersonUpdateModal from './PersonUpdateModal';
-import { deletePerson } from '../services/person';
+import { deletePerson } from '../services/Person';
 
 function PersonCard({ person, setPeople }) {
   const { id, name, birthDate } = person;

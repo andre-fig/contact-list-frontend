@@ -7,7 +7,7 @@ import { BsPlus } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import Loading from '../components/Loading';
 import { sortArray } from '../utils/sortArray';
-import { getPersonById, getPersonContacts } from '../services/person';
+import { getPersonById, getPersonContacts } from '../services/Person';
 import NotFound from './NotFound';
 
 function PersonDetail() {

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { BsTrash, BsPencil } from 'react-icons/bs';
 import ContactUpdateModal from './ContactUpdateModal';
 import { Link } from 'react-router-dom';
-import { deleteContact } from '../services/contact';
+import { deleteContact } from '../services/Contact';
 
 function ContactCard({ contact, setContacts }) {
   const { id, type, value } = contact;

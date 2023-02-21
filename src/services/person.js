@@ -1,11 +1,12 @@
-import api from './api';
+import api from './Api';
+import { handleConnectionError } from './Connection';
 
 export const getPeople = async () => {
   try {
     const response = await api.get('/person');
     return response.data;
   } catch (error) {
-    console.log(error);
+    handleConnectionError(error);
     return null;
   }
 };
@@ -15,7 +16,7 @@ export const getPersonById = async (personId) => {
     const response = await api.get(`/person/${personId}`);
     return response.data;
   } catch (error) {
-    console.log(error);
+    handleConnectionError(error);
     return null;
   }
 };
@@ -25,7 +26,7 @@ export const getPersonContacts = async (personId) => {
     const response = await api.get(`person/${personId}/contact/`);
     return response.data;
   } catch (error) {
-    console.log(error);
+    handleConnectionError(error);
     return null;
   }
 };
@@ -35,7 +36,7 @@ export const createPerson = async (personData) => {
     const response = await api.post('/person', personData);
     return response.data;
   } catch (error) {
-    console.log(error);
+    handleConnectionError(error);
     return null;
   }
 };
@@ -45,7 +46,7 @@ export const updatePerson = async (personData) => {
     const response = await api.patch(`/person/${personData.id}`, personData);
     return response.data;
   } catch (error) {
-    console.log(error);
+    handleConnectionError(error);
     return null;
   }
 };
@@ -55,7 +56,7 @@ export const deletePerson = async (personId) => {
     await api.delete(`/person/${personId}`);
     return true;
   } catch (error) {
-    console.log(error);
+    handleConnectionError(error);
     return false;
   }
 };
