@@ -3,7 +3,7 @@ import { Modal, Button, Form } from 'react-bootstrap';
 import axios from 'axios';
 
 function PersonFormModal(props) {
-  const { show, handleClose, handleAddPerson } = props;
+  const { show, handleClose } = props;
   const [name, setName] = useState('');
   const [birthDate, setBirthDate] = useState('');
 
@@ -13,8 +13,7 @@ function PersonFormModal(props) {
     const apiUrl = process.env.REACT_APP_API_URL;
 
     try {
-      const response = await axios.post(`${apiUrl}/person`, data);
-      handleAddPerson(response.data);
+      await axios.post(`${apiUrl}/person`, data);
       handleClose();
     } catch (error) {
       console.log(error);
@@ -39,7 +38,7 @@ function PersonFormModal(props) {
             />
           </Form.Group>
           <Form.Group className='mb-3'>
-            <Form.Label>Birth Date</Form.Label>
+            <Form.Label>Birthdate</Form.Label>
             <Form.Control
               type='date'
               id='birthDate'

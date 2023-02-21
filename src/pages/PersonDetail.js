@@ -40,13 +40,17 @@ function PersonDetail() {
     setShowModal(false);
   };
 
+  const handleAddContact = (newContact) => {
+    setContacts([...contacts, newContact]);
+  };
+
   return (
     <div className='container mt-3'>
       <h1>
         {person.name}
         {person.birthDate && (
           <small className='text-muted ms-2 fs-6'>
-            Birth date: {new Date(person.birthDate).toLocaleDateString()}
+            Birthdate: {new Date(person.birthDate).toLocaleDateString()}
           </small>
         )}
       </h1>
@@ -72,6 +76,7 @@ function PersonDetail() {
         show={showModal}
         handleClose={handleCloseModal}
         personId={id}
+        handleAddContact={handleAddContact}
       />
     </div>
   );
