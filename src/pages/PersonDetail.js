@@ -8,11 +8,13 @@ import { Link } from 'react-router-dom';
 import Loading from '../components/Loading';
 import { sortArray } from '../utils/sortArray';
 import { getPersonById, getPersonContacts } from '../services/person';
+import NotFound from './NotFound';
 
 function PersonDetail() {
   const [person, setPerson] = useState(null);
   const [contacts, setContacts] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { id } = useParams();
 
   useEffect(() => {
@@ -23,6 +25,9 @@ function PersonDetail() {
       ]);
       if (person) {
         setPerson(person);
+        setLoading(false);
+      } else {
+        setLoading(false);
       }
       if (contacts) {
         setContacts(contacts);
@@ -50,8 +55,12 @@ function PersonDetail() {
     getPerson();
   }, [id]);
 
-  if (!person) {
+  if (loading) {
     return <Loading />;
+  }
+
+  if (!person) {
+    return <NotFound />;
   }
 
   const handleCloseModal = () => {
