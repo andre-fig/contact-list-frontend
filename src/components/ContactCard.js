@@ -22,6 +22,12 @@ function ContactCard({ contact, setContacts }) {
     setShowUpdateModal(true);
   };
 
+  const setUpdatedContact = (updatedContact) => {
+    setContacts((prevContacts) =>
+      prevContacts.map((c) => (c.id === updatedContact.id ? updatedContact : c))
+    );
+  };
+
   return (
     <>
       <div className='d-flex align-items-center p-2 border-top'>
@@ -54,7 +60,7 @@ function ContactCard({ contact, setContacts }) {
         show={showUpdateModal}
         handleClose={() => setShowUpdateModal(false)}
         contact={contact}
-        handleUpdateContact={handleUpdateContact}
+        handleUpdateList={setUpdatedContact}
       />
     </>
   );

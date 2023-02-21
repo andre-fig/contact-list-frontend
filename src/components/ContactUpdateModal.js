@@ -6,15 +6,16 @@ function ContactUpdateModal({ show, handleClose, contact, handleUpdateList }) {
   const [type, setType] = useState(contact.type);
   const [value, setValue] = useState(contact.value);
 
-  const handleSavePerson = async () => {
+  const handleSavePerson = async (event) => {
+    event.preventDefault();
     const apiUrl = process.env.REACT_APP_API_URL;
     try {
-      await axios.patch(`${apiUrl}/contact/${contact.id}`, {
+      const response = await axios.patch(`${apiUrl}/contact/${contact.id}`, {
         type,
         value,
       });
       handleClose();
-      handleUpdateList();
+      handleUpdateList(response);
     } catch (error) {
       console.log(error);
     }
