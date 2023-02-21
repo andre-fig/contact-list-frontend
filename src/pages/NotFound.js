@@ -16,11 +16,11 @@ const NotFound = () => {
         </Col>
         <Col xs={12} className='text-center mb-3'>
           <h2>404</h2>
-          <p>Página não encontrada</p>
+          <p>Page not found</p>
         </Col>
         <Col xs={12} className='text-center'>
           <a href='/' className='btn btn-primary'>
-            Voltar para a página inicial
+            Go back to the homepage
           </a>
         </Col>
       </Row>
