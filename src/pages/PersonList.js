@@ -25,6 +25,7 @@ function PersonList() {
   return (
     <div className='container mt-3'>
       <h1 className='mb-3'>People</h1>
+      <hr />
       {persons.length > 0 ? (
         <ul className='list-group list-group-flush'>
           {persons.map((person) => (

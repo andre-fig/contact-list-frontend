@@ -20,7 +20,10 @@ function PersonDetail() {
         const contactsResponse = await axios.get(
           `${apiUrl}/person/${id}/contact`
         );
-        setContacts(contactsResponse.data);
+        const sortedContacts = contactsResponse.data.sort((a, b) =>
+          a.type.localeCompare(b.type)
+        );
+        setContacts(sortedContacts);
       } catch (error) {
         console.log(error);
       }
@@ -46,10 +49,7 @@ function PersonDetail() {
       <hr />
       <div className='d-flex align-items-center'>
         <h2 className='me-auto'>Contacts</h2>
-        <span
-          className='text-primary cursor-pointer'
-          onClick={() => setShowModal(true)}
-        >
+        <span className='text-primary' onClick={() => setShowModal(true)}>
           <BsPlus size={30} />
         </span>
       </div>
